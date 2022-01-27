@@ -6,10 +6,10 @@ function NavBar() {
         <Navbar bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand>Shopper</Navbar.Brand>
-                    <Nav className="me-auto">
+                    {/* <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/product">Products</Nav.Link>
-                    </Nav>
+                    </Nav> */}
             </Container>
         </Navbar>
     );

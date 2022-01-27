@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import ProductCard from './ProductCard';
 
-class ProductDetails extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-
-    componentDidMount() {
-
-    }
+class ProductList extends Component {
 
     render() {
         return (
-            <div>
+            <Container>
+                <Row>
                 {
                     this.props.products.map(product => 
-                        <div key={product.id}>{product.title}</div>
+                        (
+                            <Col key={product.id} sm={6} md={4} lg={3}>                                
+                                <ProductCard product={product} />
+                            </Col>
+                        )
                     )
                 }
-            </div>
+                </Row>
+            </Container>
         )
     }    
 }
 
-export default ProductDetails;
+export default ProductList;

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import FilterProducts from '../components/Home/FilterProducts';
 import NavBar from '../components/Home/NavBar';
 import ProductList from '../components/Home/ProductList';
+import SearchProducts from '../components/Home/SearchProducts';
 import Loading from '../components/Loading';
+import axios from 'axios';
 import '../css/Home.css';
 
 class Home extends Component {
@@ -10,40 +14,87 @@ class Home extends Component {
         super(props);
         this.state = {
             products: [],
-            loading: true
+            filteredProducts: [],
+            loading: true,
+            search: "",
+            currentFilter: 'All'
         }
+        this.setFilter = this.setFilter.bind(this);
+        this.searchProducts = this.searchProducts.bind(this);
+        this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
     componentDidMount() {
-        fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then((data)=>{
+        axios.get('https://fakestoreapi.com/products')
+            .then((response)=>{
                 this.setState({
-                    products: data,
+                    products: response.data,
+                    filteredProducts: response.data,
                     loading: false
                 });
-                console.log(data);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
 
+    setFilter(value) {       
+        if (value === "All") {
+            this.setState({
+                currentFilter: value,
+                filteredProducts: this.state.products
+            });
+        } else {
+            let filteredProducts = this.state.products.filter(product => {
+                return product.category === value.toLowerCase()
+            });
+            this.setState({
+                currentFilter: value,
+                filteredProducts: filteredProducts
+            });
+        }
+    }
+
+    handleSearchChange(search) {
+        this.setState({
+            search: search
+        });
+    }
+
+    searchProducts() {
+        let filteredProducts = this.state.products.filter(product => {
+            return product.title.toLowerCase().match(this.state.search.toLowerCase());
+        });
+        this.setState({
+            filteredProducts: filteredProducts
+        });
+    }
+
     render() {
         return (
             <React.Fragment>
+                <NavBar />
                 {this.state.loading && 
                     <Loading />
                 }
                 {!this.state.loading && 
-                    <React.Fragment>
-                        <NavBar />
+                    <React.Fragment>                        
                         <div className='home'>
                             <div className='search'>
-
+                                <SearchProducts handleSearchChange={this.handleSearchChange} searchProducts={this.searchProducts} />
+                            </div>
+                            <div className='category-filter'>
+                                <Row  className='justify-content-between'>                                 
+                                    <FilterProducts currentFilter={this.state.currentFilter} setFilter={this.setFilter} />
+                                    <Col>                                        
+                                        <Button>
+                                            Add Product
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </div>
                             <div className='productList'>
-                                <ProductList products={this.state.products} />
+                                <ProductList products={this.state.filteredProducts} />
                             </div>
                         </div>
                     </React.Fragment>
