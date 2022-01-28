@@ -9,6 +9,10 @@ class ProductList extends Component {
             <Container>
                 <Row>
                 {
+                    /* 
+                        List card such that on it shows 4 cards on large breakpoint
+                        3 cards on medium and 2 cards on small breakpoint
+                    */
                     this.props.products.map(product => 
                         (
                             <Col key={product.id} sm={6} md={4} lg={3}>                                

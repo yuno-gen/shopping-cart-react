@@ -9,7 +9,9 @@ function App() {
         <React.Fragment>
             <Router>
                 <Routes>
+                    {/* Home Screen which list the products and can add the product */}
                     <Route exact path="/" element={<Home />} />
+                    {/* Product Details Screen which shows details of a single product can edit and delete that product*/}
                     <Route exact path="/product" element={<ProductDetails />} />
                 </Routes>
             </Router>
