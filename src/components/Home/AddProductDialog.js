@@ -22,6 +22,7 @@ export class AddProductDialog extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             // Modal for Add Product
             <Modal

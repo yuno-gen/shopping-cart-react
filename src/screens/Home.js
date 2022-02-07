@@ -23,6 +23,7 @@ class Home extends Component {
         this.setFilter = this.setFilter.bind(this);
         this.searchProducts = this.searchProducts.bind(this);
         this.addProduct = this.addProduct.bind(this);
+        this.deleteProduct = this.deleteProduct.bind(this);
     }
 
     // GET call to API to get all products
@@ -86,6 +87,23 @@ class Home extends Component {
             })
     }
 
+    deleteProduct(product){//function to delete product by id passed
+        var array = [...this.state.products]
+        var id = product.id
+        // axios.delete('https://fakestoreapi.com/products', id)
+        //     .then((response) => {
+        //         response.data.rating = product.rating;
+        //     })
+            
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+            if(id!==-1){
+                array.splice(id, 1);
+                this.setState({filteredProducts: array})
+            }
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -121,7 +139,7 @@ class Home extends Component {
                             </div>
                             <div className='productList'>
                                 {/* List Filtered Products */}
-                                <ProductList products={this.state.filteredProducts} />
+                                <ProductList delete={this.deleteProduct} products={this.state.filteredProducts} />
                             </div>
                         </div>
                     </React.Fragment>

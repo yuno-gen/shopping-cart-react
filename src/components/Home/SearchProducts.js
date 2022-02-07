@@ -22,7 +22,7 @@ export class SearchProducts extends Component {
     render() {
         return (
             // Search input field to enter search query
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3 search-input">
                 <FormControl
                     value={this.state.search}
                     onChange={this.handleSearchChange}

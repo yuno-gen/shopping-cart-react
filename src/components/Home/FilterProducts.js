@@ -5,9 +5,9 @@ export class FilterProducts extends Component {
 
     render() {
         return (
-            <Row>
-                <Col lg={1}>Filter By: </Col>                                        
-                <Col lg={9}>                                    
+            <Row className="ml-6">
+                <Col lg={2} >Filter By: </Col>                                        
+                <Col lg={9} >                                    
                     <Dropdown>
                         {/* Toggle to select category from below listed items */}
                         <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
@@ -26,7 +26,7 @@ export class FilterProducts extends Component {
                 </Col>
                 <Col lg={2}>
                     {/* Add Product Button which shows the modal on click */}
-                    <Button onClick={() => this.props.handleAddProduct()}>
+                    <Button variant="outline-success" onClick={() => this.props.handleAddProduct()}>
                         Add Product
                     </Button>  
                 </Col>
